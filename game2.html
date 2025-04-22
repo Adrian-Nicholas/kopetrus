@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Tangkap</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/game.js"></script>
+  <style>
+  </style>
+</head>
+<body class="game">
+  <canvas id="confetti-canvas"></canvas>
+
+  <div id="gameContainer">
+    <img id="target" src="assets/images/object.png" alt="Target" />
+    <img id="object" src="assets/images/object.png" alt="Object" />
+    <div id="countdownOverlay">
+      <div id="countdownText"></div>
+    </div>  
+  </div>
+
+  <div id="timer"><span id="timeLeft"></span></div>
+
+  <!-- Modal Win -->
+  <div id="winModal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modalTitle">🎉 Kamu Menang!</h2>
+      <p id="modalText">Selamat, kamu mendapatkan hadiah.</p>
+      <p id="modalReward" class="reward-code"></p>
+      <button onclick="window.location.href='index.html'" class="btn-primary">Kembali ke Menu</button>
+    </div>
+  </div>
+
+  <!-- Modal Lose -->
+  <div id="loseModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>⏰ Waktu Habis!</h2>
+      <p>Yuk coba lagi untuk menangkan hadiah!</p>
+      <button onclick="window.location.reload()" class="btn-primary">Coba Lagi</button>
+      <button onclick="window.location.href='index.html'" class="btn-primary">Kembali ke Menu</button>
+    </div>
+  </div>
+
+  <!-- Sounds -->
+  <audio id="bgm" src="assets/sounds/bgm.mp3" autoplay loop></audio>
+  <audio id="winSound" src="assets/sounds/win.mp3"></audio>
+  <audio id="loseSound" src="assets/sounds/lose.mp3"></audio>
+  <audio id="tapSound" src="assets/sounds/tap.mp3"></audio>
+
+  <!-- <script>
+    const query = new URLSearchParams(window.location.search);
+    const level = parseInt(query.get("level")) || 1;
+    const object = document.getElementById("object");
+    const target = document.getElementById("target");
+    const tapSound = document.getElementById("tapSound");
+    const winSound = document.getElementById("winSound");
+    const loseSound = document.getElementById("loseSound");
+    const countdownOverlay = document.getElementById("countdownOverlay");
+    const countdownText = document.getElementById("countdownText");
+
+    let speed = 10 + level * 2;
+    let duration = 10 + (5 - level) * 2;
+    let isMoving = true;
+    let posX = 0;
+    let gameEnded = false;
+
+    // Countdown
+    let countdownNumber = 3;
+    countdownText.innerText = countdownNumber;
+    let countdownInterval = setInterval(() => {
+      countdownNumber--;
+      if (countdownNumber > 0) {
+        countdownText.innerText = countdownNumber;
+      } else if (countdownNumber === 0) {
+        countdownText.innerText = "GO!";
+      } else {
+        clearInterval(countdownInterval);
+        countdownOverlay.style.display = "none";
+        startGame();
+      }
+    }, 1000);
+
+    function startGame() {
+      document.getElementById("timeLeft").innerText = duration;
+
+      gameInterval = setInterval(() => {
+        if (!isMoving || gameEnded) return;
+        posX += speed;
+        if (posX > window.innerWidth) posX = -100;
+        object.style.left = posX + "px";
+      }, 16);
+
+      gameCountdown = setInterval(() => {
+        if (duration <= 0) return endGame(false);
+        duration--;
+        document.getElementById("timeLeft").innerText = duration;
+      }, 1000);
+    }
+
+    document.body.addEventListener("click", () => {
+      if (gameEnded) return;
+      tapSound.play();
+      if (isMoving) {
+        isMoving = false;
+        const objectCenter = posX + 50;
+        const screenCenter = window.innerWidth / 2;
+        if (Math.abs(objectCenter - screenCenter) <= 10) endGame(true);
+      } else {
+        isMoving = true;
+      }
+    });
+
+    function endGame(win) {
+      clearInterval(gameInterval);
+      clearInterval(gameCountdown);
+      gameEnded = true;
+      if (win) {
+        winSound.play();
+        startConfetti();
+        const reward = getRewardByLevel(level);
+        setTimeout(() => {
+          document.getElementById("modalTitle").textContent = "🎉 Kamu Menang!";
+          document.getElementById("modalText").textContent = 'Hadiahmu: ${reward.text}';
+          document.getElementById("modalReward").textContent = 'Kode: ${reward.code}';
+          document.getElementById("winModal").classList.remove("hidden");
+        }, 800);
+      } else {
+        loseSound.play();
+        setTimeout(() => {
+          document.getElementById("loseModal").classList.remove("hidden");
+        }, 800);
+      }
+    }
+
+    function getRewardByLevel(level) {
+      const rewards = {
+        1: { text: "Es Teh Manis", code: "ESTEHMANIS", icon: "🥤" },
+        2: { text: "1 Sate Ba", code: "SATEBA1", icon: "🍢" },
+        3: { text: "1 Paket Soto Ba", code: "SOTOBA1", icon: "🍲" },
+        4: { text: "1 Paket Rusuk Ba", code: "RUSUKBA1", icon: "🍖" }
+      };
+      return rewards[level] || { text: "Hadiah Spesial", code: "BONUS2025", icon: "🏰" };
+    }
+
+      function startConfetti() {
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const pieces = [];
+  for (let i = 0; i < 100; i++) {
+    pieces.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      r: Math.random() * 6 + 4,
+      d: Math.random() * 5 + 1,
+      color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+      tilt: Math.random() * 10 - 10
+    });
+  }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          p.y += p.d;
+          if (p.y > canvas.height) {
+            p.y = -10;
+            p.x = Math.random() * canvas.width;
+          }
+        });
+      }
+      let confettiAnim = setInterval(draw, 30);
+      setTimeout(() => clearInterval(confettiAnim), 2000);
+    }
+  </script> -->
+</body>
+</html>
