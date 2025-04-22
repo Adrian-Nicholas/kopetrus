@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Skranji&display=swap");
 
+*{
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   font-family: 'Baloo 2', cursive;
@@ -7,7 +10,8 @@ body {
 
 body.game {
   /* background: url('../assets/images/background.jpeg') no-repeat center center/cover; */
-  background:linear-gradient(10deg, rgba(51, 0, 0, 0.886)), url('../assets/images/background.jpeg') no-repeat center center/cover;
+  background-image: url('../assets/images/background.jpg') no-repeat center center/cover;
+  /* background:linear-gradient(10deg, rgba(51, 0, 0, 0.886)), url('../assets/images/background.png') no-repeat center center/cover; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -345,13 +349,16 @@ body.fade-in {
   display: none;
 }
 
-
 body.index {
   display: flex;
+  height: 100vh;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  width: 100vw;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background:linear-gradient(10deg, rgba(51, 0, 0, 0.886)), url('../assets/images/background.jpeg') no-repeat center center/cover;
+  background: url(../assets/images/background2.jpg) no-repeat center center / cover;
+  background-attachment: fixed; /* memastikan gambar tetap dan tidak bergeser saat scroll */
   text-align: center;
   color: #fff;
   font-family: 'Fredoka', sans-serif;
@@ -359,7 +366,6 @@ body.index {
 
 .overlay {
   /* background: rgba(0, 0, 0, 0.5); */
-  padding: 40px;
   border-radius: 20px;
   max-width: 500px;
 }
@@ -439,12 +445,7 @@ body.index {
 
 .button:after{
   content:"";
-  height:100%;
-  width:100%;
-  padding:4px;
   position: absolute;
-  bottom:-15px;
-  left:-4px;
   z-index:-1;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
