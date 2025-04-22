@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Tangkap - Soto Rusuk Ba' Ko Petrus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/game.js"></script>
+</head>
+<body class="index">
+  <div class="overlay">
+    <img src="assets/images/logo.png" alt="Logo Restoran" class="logo" />
+    <h1 class="title">Game Tangkap!</h1>
+    <h1 class="text-3xl font-bold underline">
+      Hello world!
+    </h1>
+    <p class="subtitle">Sentuh layar untuk menghentikan objek tepat di tengah target. Ayo menangkan hadiah menarik!</p>
+
+    <div class="levels">
+      <h3>Pilih Level</h3>
+      <div class=" button level-buttons">
+        <button onclick="startGame(1)">1</button>
+        <button onclick="startGame(2)">2</button>
+        <button onclick="startGame(3)">3</button>
+        <button onclick="startGame(4)">4</button>
+      </div>
+    </div>
+  </div>
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+  
+  <script>
+    function startGame(level) {
+      window.location.href = `game.html?level=${level}`;
+    }
+  </script>
+  <script>
+    document.body.classList.add("fade-in");
+  
+    function startGame(level) {
+      document.body.classList.remove("fade-in");
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = `game.html?level=${level}`;
+      }, 500);
+    }
+  </script>
+  <script>
+    window.addEventListener('load', () => {
+      document.getElementById("loader").style.display = "none";
+    });
+  </script>
+  
+  
+</body>
+</html>
