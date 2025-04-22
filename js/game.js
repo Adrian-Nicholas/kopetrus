@@ -22,12 +22,12 @@ document.addEventListener('touchstart', function(e) {
 }, { passive: false });
 
 // Suara saat objek bergerak
-const moveSound = new Audio('assets/sounds/moveSound.mp3'); // Pastikan file suara tersedia
-moveSound.play();
+// const moveSound = new Audio('assets/sounds/moveSound.mp3'); // Pastikan file suara tersedia
+// moveSound.play();
 
-// Suara saat target tercapai
-const hitSound = new Audio('assets/sounds/hitSound.mp3');
-hitSound.play();
+// // Suara saat target tercapai
+// const hitSound = new Audio('assets/sounds/hitSound.mp3');
+// hitSound.play();
 
 let speed = 10 + level * 2;
 let duration = 20 + (5 - level) * 2;
@@ -52,8 +52,8 @@ let gameEnded = false;
 //   }
 // }, 1000);
 
-countdownSound.volume = 1;
-countdownSound.muted = false;
+// countdownSound.volume = 1;
+// countdownSound.muted = false;
 
 let countdownNumber = 3;
 countdownText.innerText = countdownNumber;
@@ -67,11 +67,9 @@ let countdownInterval = setInterval(() => {
     countdownText.innerText = countdownNumber;
   } else if (countdownNumber === 0) {
     countdownText.innerText = "GO!";
-
   } else {
     clearInterval(countdownInterval);
     countdownOverlay.style.display = "none";
-    countdownSound.play();
     startGame(); // mulai game setelah "GO!"
   }
 }, 1000); // setiap 1 detik ganti angka
