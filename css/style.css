@@ -1,0 +1,487 @@
+@import url("https://fonts.googleapis.com/css2?family=Skranji&display=swap");
+
+body {
+  margin: 0;
+  font-family: 'Baloo 2', cursive;
+}
+
+body.game {
+  /* background: url('../assets/images/background.jpeg') no-repeat center center/cover; */
+  background:linear-gradient(10deg, rgba(51, 0, 0, 0.886)), url('../assets/images/background.jpeg') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  color: #fff;
+}
+
+#gameContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  filter: grayscale(100%);
+  z-index: 1;
+}
+
+#object {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: transform 0.1s ease-in-out;
+}
+
+body.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+body.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #d62828;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+#rotateWarning {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000000cc;
+  color: white;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 99999;
+}
+
+@media screen and (orientation: portrait) {
+  #rotateWarning {
+    display: flex;
+  }
+}
+
+#timer {
+  font-size: 80px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  font-weight: 500;
+  color: white;
+}
+
+#countdownOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.825);
+  color: white;
+  font-size: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Fredoka', sans-serif;
+}
+
+#countdownText {
+  animation: pop 0.5s ease-in-out;
+}
+
+
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+#loseModal .modal {
+  display: none; /* Ensure modal is hidden initially */
+  position: fixed;
+  left:50;
+  top: 050;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#loseModal .modal.hidden {
+  display: none;
+}
+
+#loseModal .container {
+  max-width: 100vw;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loseModal .container-inner {
+  background: #a4363e;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 3px 4px -2px -4px #620d15, -6px 5px 0px -2px #620d15,
+    0px -2px 0px 2px #ee9191, 0px 10px 0px 0px #610c14,
+    0px -10px 0px 1px #e66565, 0px 0px 180px 90px #0d2f66;
+  width: 640px;
+}
+
+#loseModal .content {
+  font-family: "Skranji", cursive;
+  background: radial-gradient(#fffbf3, #ffe19e);
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 20px 18px 20px 18px;
+  box-shadow: 0px 0px 0px 6px #5e1e21, 0px 0px 8px 6px #84222b,
+    inset 0px 0px 15px 0px #614506, 6px 6px 1px 1px #e66565,
+    -6px 6px 1px 1px #e66565;
+  text-align: center;
+}
+
+#loseModal .content h2 {
+  font-size: 30px;
+  color: #461417;
+}
+
+#loseModal .content p {
+  font-size: 24px;
+  color: #461417;
+  padding: 20px 0;
+}
+
+#loseModal .buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+#loseModal button {
+  padding: 5px;
+  flex: 1;
+  border-radius: 20px;
+  border: 1px solid #49181e;
+  font-family: "Skranji", cursive;
+  color: #fff;
+  font-size: 20px;
+  text-shadow: 1px 2px 3px #000000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#loseModal button:hover {
+  transform: scale(1.05);
+}
+
+#loseModal .confirm {
+  background: linear-gradient(#ced869, #536d1b);
+  box-shadow: 0px 0px 0px 4px #7e1522, 0px 2px 0px 3px #e66565;
+}
+
+#loseModal .cancel {
+  background: linear-gradient(#ea7079, #891a1a);
+  box-shadow: 0px 0px 0px 4px #7e1522, 0px 2px 0px 3px #e66565;
+}
+
+/* Tambahkan ini ke style.css css modal lama*/
+/* 
+.popup {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: #333;
+  z-index: 999;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#popup {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#popup:not(.hidden) {
+  opacity: 1;
+}
+
+
+.popup h2 {
+  font-family: 'Chewy', cursive;
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #d62828;
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  max-width: 90%;
+}
+
+.modal-content h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #d62828;
+}
+
+.reward-code {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2b9348;
+  margin: 15px 0;
+}
+
+.btn-primary {
+  background: #f77f00;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #f48c06;
+}
+
+
+.popup-buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #f77f00, #fcbf49);
+  border: none;
+  box-shadow: 0 4px 14px rgba(255, 165, 0, 0.6);
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.popup-buttons button:hover {
+  background: #f48c06;
+} */
+
+.hidden {
+  display: none;
+}
+
+
+body.index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background:linear-gradient(10deg, rgba(51, 0, 0, 0.886)), url('../assets/images/background.jpeg') no-repeat center center/cover;
+  text-align: center;
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.overlay {
+  /* background: rgba(0, 0, 0, 0.5); */
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 500px;
+}
+
+.logo {
+  width: 160px;
+  margin-bottom: 20px;
+  animation: swing 2s ease-in-out infinite alternate;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.1) rotate(3deg);
+}
+
+
+
+.title {
+  font-family: 'Chewy', cursive;
+  font-size: 48px;
+  margin: 0 0 10px;
+  color: #ffbe0b;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.levels h3 {
+  margin-bottom: 15px;
+  color: #ffe066;
+  font-weight: bold;
+  font-size:40px;
+}
+.button{
+  display: flex;
+  flex-wrap: wrap;
+  margin:5px;
+  gap: 5px;
+  justify-content: center;
+}
+
+.button button{
+  color:white;
+  font-family:Helvetica, sans-serif;
+  font-weight:bold;
+  font-size:50px;
+  text-align: center;
+  text-decoration:none;
+  background-color:#FFA12B;
+  display:block;
+  position:relative;
+  padding:10px 20px;
+  
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-shadow: 0px 1px 0px #000;
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+  
+  -webkit-box-shadow:inset 0 0.5px 0 #FFE5C4, 0 5px 0 #915100;
+  -moz-box-shadow:inset 0 0.5px 0 #FFE5C4, 0 5px 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+  
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.button button:active{
+  top:10px;
+  background-color:#F78900;
+  
+  -webkit-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+  -moz-box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
+  box-shadow:inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+}
+
+.button:after{
+  content:"";
+  height:100%;
+  width:100%;
+  padding:4px;
+  position: absolute;
+  bottom:-15px;
+  left:-4px;
+  z-index:-1;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+
+#winModal.show {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes logoBounce {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes swing {
+  0% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(3deg) scale(1.03); }
+  100% { transform: rotate(-3deg) scale(1); }
+}
