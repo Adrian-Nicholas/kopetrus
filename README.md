@@ -1,2 +1,2 @@
 # Game Tangkap Babi - Soto Rusuk Ba - Ko Petrus
-© Copyright @adriannicholaslsoft2025
+© Copyright @adrinzsoft2025
