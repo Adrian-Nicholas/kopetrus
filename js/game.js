@@ -36,32 +36,31 @@ let countdownInterval = setInterval(() => {
     countdownText.innerText = countdownNumber;
   } else if (countdownNumber === 0) {
     countdownText.innerText = "GO!";
-  } else {
+  }  else {
     clearInterval(countdownInterval);
     countdownOverlay.style.display = "none";
-    startGame(); // mulai game setelah "GO!"
+  
+    // Ambil posisi target sebagai acuan
+    const targetRect = target.getBoundingClientRect();
+    const objectWidth = object.offsetWidth || 100;
+  
+    // Set posisi object biar sejajar tengah target
+    posX = targetRect.left + (targetRect.width / 2) - (objectWidth / 2);
+    object.style.left = posX + "px";
+    object.style.display = "block";
+    target.style.display = "block"
+    requestAnimationFrame(() => object.classList.add("show"));
+    startGame();
   }
 }, 1000); // setiap 1 detik ganti angka
 
-// BARU
-posX = Math.random() * (window.innerWidth - 100);
-object.style.left = posX + "px";
-window.addEventListener("resize", () => {
-  if (posX > window.innerWidth) posX = window.innerWidth - 100;
-});
-function flashBackground(color) {
-  document.body.style.backgroundColor = color;
-  setTimeout(() => {
-    document.body.style.backgroundColor = "";
-  }, 300);
-}
-
 function startGame() {
   document.getElementById("timeLeft").innerText = duration;
+
   gameInterval = setInterval(() => {
     if (!isMoving || gameEnded) return;
     posX += speed;
-    if (posX > window.innerWidth) posX = -100;
+    if (posX > window.innerWidth) posX = -object.offsetWidth;
     object.style.left = posX + "px";
   }, 16);
 
@@ -71,6 +70,24 @@ function startGame() {
     document.getElementById("timeLeft").innerText = duration;
   }, 1000);
 }
+// function startGame() {
+//   const objectWidth = object.offsetWidth || 100; // fallback ukuran
+//   posX = (window.innerWidth - objectWidth) / 2; // posisi tengah
+//   object.style.left = posX + "px";
+//   document.getElementById("timeLeft").innerText = duration;
+//   gameInterval = setInterval(() => {
+//     if (!isMoving || gameEnded) return;
+//     posX += speed;
+//     if (posX > window.innerWidth) posX = -100;
+//     object.style.left = posX + "px";
+//   }, 16);
+
+//   gameCountdown = setInterval(() => {
+//     if (duration <= 0) return endGame(false);
+//     duration--;
+//     document.getElementById("timeLeft").innerText = duration;
+//   }, 1000);
+// }
 
 document.body.addEventListener("click", () => {
   if (gameEnded) return;
