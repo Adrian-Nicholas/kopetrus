@@ -4,8 +4,9 @@
     "short_name": "Game Tangkap",
     "start_url": "index.html",
     "display": "standalone",
-    "background": "linear-gradient(rgba(50, 1, 1, 0.813)), url('../assets/images/background-potrait.jpg') no-repeat center center / cover",
-    "theme_color": "rgb(82, 0, 0)",
+    "background_color": "#000000",
+    "theme_color": "#520000",
+    "scope": "",
     "icons": [
       {
         "src": "assets/images/logo.png",
