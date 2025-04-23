@@ -5,6 +5,7 @@ const urlsToCache = [
   'css/style.css',
   'js/main.js',
   'js/game.js',
+  'offline.html',
   'assets/images/logo.png',
   'assets/images/frame.png',
   'assets/images/objek.png',
@@ -17,6 +18,7 @@ const urlsToCache = [
 
 // Install: cache semua resource
 self.addEventListener('install', event => {
+  self.skipWaiting(); // aktifkan langsung
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -26,13 +28,11 @@ self.addEventListener('install', event => {
   );
 });
 
-// Fetch: ambil dari cache jika offline
+// Fetch: ambil dari cache, fallback ke offline.html jika gagal
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+      .then(response => response || fetch(event.request).catch(() => caches.match('offline.html')))
   );
 });
 
@@ -49,4 +49,5 @@ self.addEventListener('activate', event => {
       )
     )
   );
+  self.clients.claim(); // ambil alih kontrol
 });
