@@ -43,6 +43,19 @@ let countdownInterval = setInterval(() => {
   }
 }, 1000); // setiap 1 detik ganti angka
 
+// BARU
+posX = Math.random() * (window.innerWidth - 100);
+object.style.left = posX + "px";
+window.addEventListener("resize", () => {
+  if (posX > window.innerWidth) posX = window.innerWidth - 100;
+});
+function flashBackground(color) {
+  document.body.style.backgroundColor = color;
+  setTimeout(() => {
+    document.body.style.backgroundColor = "";
+  }, 300);
+}
+
 function startGame() {
   document.getElementById("timeLeft").innerText = duration;
   gameInterval = setInterval(() => {
