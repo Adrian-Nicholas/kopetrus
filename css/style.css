@@ -483,14 +483,6 @@ button.cancel:hover {
   100% { transform: rotate(-3deg) scale(1); }
 }
 
-#object {
-  animation: float 2s infinite ease-in-out;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(-50%) translateX(0); }
-  50% { transform: translateY(-50%) translateX(10px); }
-}
 
 @media (max-width: 480px) {
   .title { font-size: 36px; }
