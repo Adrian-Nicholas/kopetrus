@@ -209,10 +209,10 @@ function startConfetti() {
   setTimeout(() => clearInterval(confettiAnim), 2000);
 }
 
-document.getElementById("btnBack").addEventListener("click", () => {
-  window.location.href = "index.html";
-});
+// document.getElementById("btnBack").addEventListener("click", () => {
+//   window.location.href = "index.html";
+// });
 
-document.getElementById("btnRetry").addEventListener("click", () => {
-  window.location.reload();
-});
+// document.getElementById("btnRetry").addEventListener("click", () => {
+//   window.location.reload();
+// });
