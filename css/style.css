@@ -3,6 +3,13 @@
 *{
   box-sizing: border-box;
 }
+
+html{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
 body {
   touch-action: manipulation; /* Menonaktifkan perilaku zooming dan geser untuk perangkat layar sentuh */
   font-family: 'Baloo 2', cursive;
@@ -256,6 +263,7 @@ body.index {
   display: flex;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
   text-align: center;
