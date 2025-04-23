@@ -6,12 +6,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@400;600&display=swap" rel="stylesheet" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet" />
+<!-- Untuk Chrome di Android -->
+<meta name="theme-color" content="rgb(82, 0, 0)"> <!-- ganti sesuai warna background -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">oo+2:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/game.js"></script>
+  <script>
+    window.scrollTo(0, 0);
+    document.documentElement.requestFullscreen?.();
+  </script>
 </head>
 
 <body class="index">
@@ -75,6 +79,8 @@
   <script>
     window.addEventListener('load', () => {
       document.getElementById("loader").style.display = "none";
+      posX = (window.innerWidth - 100) / 2;
+      object.style.left = posX + "px";
     });
   </script>
   
