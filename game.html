@@ -4,12 +4,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
   <meta charset="UTF-8" />
   <title>Game Tangkap</title>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/game.js" defer></script>
-  <style>
-  </style>
+
 </head>
 <body class="game">
   <div class="background"></div>
@@ -59,8 +62,16 @@
   <audio id="loseSound" src="assets/sounds/lose.mp3"></audio>
   <audio id="countdownSound" src="assets/sounds/countdown.mp3"></audio>
   <audio id="tapSound" src="assets/sounds/tap.mp3"></audio>
-
   <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(reg) {
+          console.log('Service Worker registered!', reg);
+        })
+        .catch(function(err) {
+          console.log('Service Worker failed:', err);
+        });
+    }
   </script>
 </body>
 </html>
